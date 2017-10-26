@@ -3,9 +3,14 @@ dist: trusty
 language: generic
 compiler:
   - gcc
+services:
+  - docker
 env:
   matrix:
     - ROS_DISTRO="kinetic" PRERELEASE=true
+    - ROS_DISTRO="kinetic" PRERELEASE=true OS_ARCH=arm64
+before_install:
+  - docker run --rm --privileged multiarch/qemu-user-static:register
 install:
   - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
 script:
